@@ -83,8 +83,13 @@ function fetchGitHubInformation(event) {
                 // if there is a 404 error
                 $("#gh-user-data").html(`<h2>No Info Found for user ${username}`);
                 // state that no information is found for the user
-            }
-            else {
+            
+            } else if(errorResponse.status === 403) {
+                // if there is a 403 error, meaning that github has forbidden
+                // us from accessing their API due to API throttling
+                var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset')*1000);
+                $("#gh-user-data").html(`<h4>Too many requests, please wait until ${resetTime.toLocaleTimeString()}</h4>`);
+            } else {
                 console.log(errorResponse);
                 // if there is a different kind of error (not 404)
                 $("#gh-user-data").html(
