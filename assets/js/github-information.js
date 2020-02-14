@@ -93,3 +93,8 @@ function fetchGitHubInformation(event) {
             }
         });
 }
+
+$(document).ready(fetchGitHubInformation);
+// runs the fetchGitHubInformation function as soon as the document is loaded
+// this has the effect of immediately showing us Octocat's information
+// Octocat is the official Github account
